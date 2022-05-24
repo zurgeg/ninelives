@@ -9,7 +9,7 @@ local cat = nil
 
 function setUp()
     local cat = playdate.sprites.new("gfx/cat") -- load player sprite
-    assert cat
+    assert(cat)
     catSprite = cat.sprite.new( cat )
     catSprite:moveTo( 200, 120 )
 end
