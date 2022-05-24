@@ -19,5 +19,5 @@ function playdate.update()
         -- todo: jump
     end
 
-    catSprite:moveBy( 0, 5 )
+    catSprite:moveBy( 5, 0 )
 end
