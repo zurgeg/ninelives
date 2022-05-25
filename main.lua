@@ -1,13 +1,15 @@
+---@diagnostic disable-next-line: undefined-global
 import "CoreLibs/timer"
+---@diagnostic disable-next-line: undefined-global
 import "gameScene/sprites.lua"
 
-function setUp()
-    setUpSprites()
+function SetUp()
+    SetUpSprites()
 end
 
-setUp()
+SetUp()
 
 function playdate.update()
-    updateSprites()
+    UpdateSprites()
     playdate.timer.updateTimers()
 end

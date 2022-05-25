@@ -1,6 +1,10 @@
+---@diagnostic disable-next-line: undefined-global
 import "CoreLibs/graphics"
+---@diagnostic disable-next-line: undefined-global
 import "CoreLibs/sprites"
+---@diagnostic disable-next-line: undefined-global
 import "AnimatedSprite/AnimatedSprite"
+---@diagnostic disable-next-line: undefined-global
 import "physics/spriteCollision"
 
 local gfx <const> = playdate.graphics
@@ -15,7 +19,7 @@ local hasUpdated = false
 
 local movedThisFrame = false
 
-function setUpSprites()
+function SetUpSprites()
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
     box = playdate.geometry.rect.new(0, 200, 400,100)
     playdate.graphics.fillRect(box)
@@ -27,7 +31,7 @@ function setUpSprites()
     catSprite:add()
     boxSprite:add()
     catSprite:playAnimation()
-    setUpCollision(catSprite)
+    SetUpCollision(catSprite)
     boxSprite:setCollideRect(box)
     playdate.graphics.fillRect(box)
     function catSprite:collisionResponse(otherSprite)
@@ -39,7 +43,7 @@ function setUpSprites()
     end
 end
 
-function updateSprites()
+function UpdateSprites()
     movedThisFrame = false
     if not hasUpdated then
         hasUpdated = true
@@ -50,19 +54,19 @@ function updateSprites()
     end
     if playdate.buttonIsPressed(playdate.kButtonLeft) then
         catSprite.globalFlip = gfx.kImageFlippedX
-        moveWithGravity(catSprite, -7, 0)
+        MoveWithGravity(catSprite, -7, 0)
         movedThisFrame = true
         playdate.graphics.sprite.update()
     end
     if playdate.buttonIsPressed(playdate.kButtonRight) then
         catSprite.globalFlip = gfx.kImageUnflipped
-        moveWithGravity(catSprite, 7, 0)
+        MoveWithGravity(catSprite, 7, 0)
         movedThisFrame = true
         playdate.graphics.sprite.update()
     end
     if not movedThisFrame then
         catSprite:pauseAnimation()
-        updateGravity(catSprite)
+        UpdateGravity(catSprite)
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end

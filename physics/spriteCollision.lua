@@ -1,25 +1,27 @@
+---@diagnostic disable-next-line: undefined-global
 import "CoreLibs/sprites"
+---@diagnostic disable-next-line: undefined-global
 import "CoreLibs/graphics"
 
-function addCollideRect(sprite)
+function AddCollideRect(sprite)
     sprite:setCollideRect(0, 0, sprite:getSize())
 end
 
-function setUpCollision(sprite)
-    addCollideRect(sprite)
+function SetUpCollision(sprite)
+    AddCollideRect(sprite)
     -- todo: what else should we do?
 end
 
-function tryMoveBy(sprite, dx, dy)
-    newX = sprite.x + dx
-    newY = sprite.y + dy
-    return sprite:moveWithCollisions(newX, newY)
+function TryMoveBy(sprite, dx, dy)
+    NewX = sprite.x + dx
+    NewY = sprite.y + dy
+    return sprite:moveWithCollisions(NewX, NewY)
 end
 
-function moveWithGravity(sprite, xForce, yForce)
-    tryMoveBy(sprite, xForce, 1 + yForce)
+function MoveWithGravity(sprite, xForce, yForce)
+    TryMoveBy(sprite, xForce, 1 + yForce)
 end
 
-function updateGravity(sprite)
-    moveWithGravity(sprite, 0, 0)
+function UpdateGravity(sprite)
+    MoveWithGravity(sprite, 0, 0)
 end
