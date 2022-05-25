@@ -2,22 +2,38 @@ import "CoreLibs/object"
 import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
+import "CoreLibs/animation"
 
 local gfx <const> = playdate.graphics
 
-local cat = nil
+local catSprite = nil
+
+animX = 200
+animY = 120
 
 function setUp()
-    local cat = playdate.sprites.new("gfx/cat") -- load player sprite
-    assert(cat)
-    catSprite = cat.sprite.new( cat )
-    catSprite:moveTo( 200, 120 )
+    catAnim = gfx.imagetable.new("gfx/anim/cat")
+    catAnimation = playdate.graphics.animation.loop.new(80, catAnim)
 end
 
-function playdate.update()
-    if playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp) then
-        -- todo: jump
-    end
+setUp()
 
-    catSprite:moveBy( 5, 0 )
+function playdate.update()
+    gfx.clear()
+    animY = 120
+    if playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp) then
+        -- jump
+    end
+    if playdate.buttonIsPressed(playdate.kButtonLeft) then
+        -- move left
+        catAnimation.paused = false
+        animX -= 5
+    end
+    if playdate.buttonIsPressed(playdate.kButtonRight) then
+        -- move right
+        catAnimation.paused = false
+        animX += 5
+    end
+    catAnimation:draw(animX, animY)
+    playdate.timer.updateTimers()
 end
