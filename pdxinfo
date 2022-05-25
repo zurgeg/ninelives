@@ -2,4 +2,3 @@ name=NineLives
 author=zurgeg
 description=An endless runner. But be warned, if you die nine times: your save file will be deleted.
 version=1.0
-contentWarning=This game may make you throw your Playdate!
