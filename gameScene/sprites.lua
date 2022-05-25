@@ -7,21 +7,40 @@ local gfx <const> = playdate.graphics
 
 local catSprite = nil
 
+local boxSprite = nil
+
+local box
+
 local hasUpdated = false
 
 local movedThisFrame = false
 
 function setUpSprites()
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
+    box = playdate.geometry.rect.new(0, 200, 400,100)
+    playdate.graphics.fillRect(box)
+    boxSprite = playdate.graphics.sprite.new(box)
     catSprite = AnimatedSprite.new(catAnim)
     assert (catSprite, "Failed to create cat sprite")
+    assert (boxSprite, "Failed to create box sprite")
     catSprite:moveTo(200, 100)
     catSprite:add()
+    boxSprite:add()
     catSprite:playAnimation()
     setUpCollision(catSprite)
+    boxSprite:setCollideRect(box)
+    function catSprite:collisionResponse(otherSprite)
+        if otherSprite == boxSprite then
+            return "slide"
+        else
+            return "slide"
+        end
+        
+    end
 end
 
 function updateSprites()
+    playdate.graphics.fillRect(box)
     movedThisFrame = false
     if not hasUpdated then
         hasUpdated = true
