@@ -29,18 +29,17 @@ function setUpSprites()
     catSprite:playAnimation()
     setUpCollision(catSprite)
     boxSprite:setCollideRect(box)
+    playdate.graphics.fillRect(box)
     function catSprite:collisionResponse(otherSprite)
         if otherSprite == boxSprite then
             return "slide"
         else
             return "slide"
         end
-        
     end
 end
 
 function updateSprites()
-    playdate.graphics.fillRect(box)
     movedThisFrame = false
     if not hasUpdated then
         hasUpdated = true
