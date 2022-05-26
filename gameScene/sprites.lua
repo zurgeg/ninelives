@@ -61,8 +61,9 @@ function UpdateSprites()
             catSprite:setRotation(RandomNumber(-10,10))
             if #catSprite:overlappingSprites() > 0 then
                 catSprite:setRotation(0)
+            else
+                firstJumpFrame = false
             end
-            firstJumpFrame = false
         end
         if crankDelta ~= 0 and not IsGrounded(catSprite, boxSprite) then
             local catRotation = catSprite:getRotation()
@@ -76,10 +77,14 @@ function UpdateSprites()
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
-    if IsGrounded(catSprite, boxSprite) and (-3 > catSprite:getRotation() and catSprite:getRotation() > 3) then
+    if IsGrounded(catSprite, boxSprite) then
+        print("grounded")
+    end
+    if IsGrounded(catSprite, boxSprite) and ((-3 > catSprite:getRotation()) or (catSprite:getRotation() > 3)) then
         -- todo: the player should die if they land on the box and are rotated
         catSprite:setRotation(0)
         JumpingSprites["cat"] = false
+        playdate.graphics.sprite.update()
     end
     if playdate.buttonIsPressed(playdate.kButtonLeft) then
         catSprite.globalFlip = gfx.kImageFlippedX
