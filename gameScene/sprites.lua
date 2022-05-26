@@ -47,7 +47,7 @@ function UpdateSprites()
         hasUpdated = true
         playdate.graphics.sprite.update()
     end
-    if playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp) or JumpingSprites["cat"] then
+    if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
         catSprite:pauseAnimation()
         movedThisFrame = true
         if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
