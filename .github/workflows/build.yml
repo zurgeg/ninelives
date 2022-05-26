@@ -27,4 +27,4 @@ jobs:
       - name: Build image
         run: docker build . -t build-ninelives:latest
       - name: Run build
-        run: docker run -v .:/source -v ninelives.pdx:/home/playdate-sdk/ninelives.pdx
+        run: docker run build-ninelives:latest -v .:/source -v ninelives.pdx:/home/playdate-sdk/ninelives.pdx
