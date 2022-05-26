@@ -56,6 +56,9 @@ function UpdateSprites()
             local catRotation = catSprite:getRotation()
             local newCatRotation = catRotation + crankDelta
             catSprite:setRotation(newCatRotation)
+            if #catSprite:overlappingSprites() > 0 then
+                catSprite:setRotation(catRotation)
+            end
         end
         if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
             SetJumpForce("cat", 10)
