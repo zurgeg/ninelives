@@ -42,22 +42,36 @@ end
 
 function UpdateSprites()
     movedThisFrame = false
+
     if not hasUpdated then
         hasUpdated = true
         playdate.graphics.sprite.update()
     end
-    if playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp) then
-        -- jump
+    if playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp) or JumpingSprites["cat"] then
+        movedThisFrame = true
+        if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
+            SetJumpForce("cat", 10)
+        end
+        ApplyJumpForce(catSprite, "cat")
+        playdate.graphics.sprite.update()
     end
     if playdate.buttonIsPressed(playdate.kButtonLeft) then
         catSprite.globalFlip = gfx.kImageFlippedX
-        MoveWithGravity(catSprite, -7, 0)
+        if not JumpingSprites["cat"] then
+            MoveWithGravity(catSprite, -7, 0)
+        else
+            TryMoveBy(catSprite, -7, 0)
+        end
         movedThisFrame = true
         playdate.graphics.sprite.update()
     end
     if playdate.buttonIsPressed(playdate.kButtonRight) then
         catSprite.globalFlip = gfx.kImageUnflipped
-        MoveWithGravity(catSprite, 7, 0)
+        if not JumpingSprites["cat"] then
+            MoveWithGravity(catSprite, 7, 0)
+        else
+            TryMoveBy(catSprite, 7, 0)
+        end
         movedThisFrame = true
         playdate.graphics.sprite.update()
     end
