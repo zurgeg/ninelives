@@ -50,7 +50,7 @@ function ApplyJumpForce(sprite, spritename)
     if not JumpingSprites[spritename] and force ~= 0 then
         JumpingSprites[spritename] = true
     end
-    if force ~= 0 then
+    if force > 0 then
         MoveWithGravity(sprite, 0, -force)
     else
         JumpingSprites[spritename] = false
