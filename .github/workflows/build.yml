@@ -18,13 +18,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+        with:
+          path: "source"
       # Runs a single command using the runners shell
       - name: Install and Set Up Docker
         # You may pin to the exact commit or the version.
         # uses: docker-practice/actions-setup-docker@2d1d86c7fd8177d36a51a328528c79aae2bcb1fe
         uses: docker-practice/actions-setup-docker@v1
       - name: Build image
-        run: docker build . -t build-ninelives:latest
+        run: docker build source -t build-ninelives:latest
       - name: Run build
-        run: docker run build-ninelives:latest -v .:/source -v ninelives.pdx:/home/playdate-sdk/ninelives.pdx
+        run: docker run build-ninelives:latest -v source:/source -v ninelives.pdx:/home/playdate-sdk/ninelives.pdx
