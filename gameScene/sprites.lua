@@ -16,6 +16,8 @@ local hasUpdated = false
 
 local movedThisFrame = false
 
+local firstJumpFrame = true
+
 function SetUpSprites()
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
     box = playdate.geometry.rect.new(0, 200, 400,100)
@@ -44,7 +46,6 @@ end
 function UpdateSprites()
     movedThisFrame = false
     local crankDelta = playdate.getCrankChange()
-    crankDelta = crankDelta + RandomNumber(-5,5)
     if not hasUpdated then
         hasUpdated = true
         playdate.graphics.sprite.update()
@@ -52,6 +53,17 @@ function UpdateSprites()
     if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
         catSprite:pauseAnimation()
         movedThisFrame = true
+        if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
+            SetJumpForce("cat", 10)
+            firstJumpFrame = true
+        end
+        if firstJumpFrame and not IsGrounded(catSprite,boxSprite) then
+            catSprite:setRotation(RandomNumber(-10,10))
+            if #catSprite:overlappingSprites() > 0 then
+                catSprite:setRotation(0)
+            end
+            firstJumpFrame = false
+        end
         if crankDelta ~= 0 and not IsGrounded(catSprite, boxSprite) then
             local catRotation = catSprite:getRotation()
             local newCatRotation = catRotation + crankDelta
@@ -59,9 +71,6 @@ function UpdateSprites()
             if #catSprite:overlappingSprites() > 0 then
                 catSprite:setRotation(catRotation)
             end
-        end
-        if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
-            SetJumpForce("cat", 10)
         end
         ApplyJumpForce(catSprite, "cat")
         playdate.graphics.sprite.update()
