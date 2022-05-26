@@ -1,9 +1,6 @@
-import "os"
-import "math"
-
 function SetupRNG(seed)
     if seed == nil then
-        seed = os.time()
+        seed = playdate.getSecondsSinceEpoch()
     end
     math.randomseed(seed)
 end

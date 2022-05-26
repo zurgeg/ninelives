@@ -52,10 +52,13 @@ function UpdateSprites()
     if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
         catSprite:pauseAnimation()
         movedThisFrame = true
-        if crankDelta ~= 0 then
+        if crankDelta ~= 0 and not IsGrounded(catSprite, boxSprite) then
             local catRotation = catSprite:getRotation()
             local newCatRotation = catRotation + crankDelta
             catSprite:setRotation(newCatRotation)
+            if #catSprite:overlappingSprites() > 0 then
+                catSprite:setRotation(catRotation)
+            end
         end
         if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
             SetJumpForce("cat", 10)
