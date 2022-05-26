@@ -1,6 +1,5 @@
 ---@diagnostic disable-next-line: undefined-global
 import "CoreLibs/sprites"
----@diagnostic disable-next-line: undefined-global
 import "CoreLibs/graphics"
 
 function AddCollideRect(sprite)
