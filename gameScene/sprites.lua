@@ -62,6 +62,12 @@ function UpdateSprites()
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
+    if IsGrounded(catSprite, boxSprite) and catSprite:getRotation() ~= 0 then
+        -- todo: the player should die if they land on the box and are rotated
+        catSprite:pauseAnimation()
+        catSprite:setRotation(0)
+        catSprite:playAnimation()
+    end
     if playdate.buttonIsPressed(playdate.kButtonLeft) then
         catSprite.globalFlip = gfx.kImageFlippedX
         if not JumpingSprites["cat"] then
