@@ -44,7 +44,7 @@ end
 function UpdateSprites()
     movedThisFrame = false
     local crankDelta = playdate.getCrankChange()
-    crankDelta = crankDelta + RandomNumber(-1,1)
+    crankDelta = crankDelta + RandomNumber(-3,3)
     if not hasUpdated then
         hasUpdated = true
         playdate.graphics.sprite.update()
