@@ -2,6 +2,7 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "AnimatedSprite/AnimatedSprite"
 import "physics/spriteCollision"
+import "rng/rng"
 
 local gfx <const> = playdate.graphics
 
@@ -43,6 +44,7 @@ end
 function UpdateSprites()
     movedThisFrame = false
     local crankDelta = playdate.getCrankChange()
+    crankDelta = crankDelta + RandomNumber(-1,1)
     if not hasUpdated then
         hasUpdated = true
         playdate.graphics.sprite.update()
