@@ -11,4 +11,4 @@ Pressing a jump key while you are jumping causes the game to block the player fr
 Its possible for the player to turn the cat into clipping through the floor and KOing themselves. Let's fix this!
 
 ### Player Disappearing while jumping glitch (regression as of master@8c67c72574069fbdb52a535f44cfe8e8aba8de00)
-The player randomly disappears after jumping sometimes.
+The player randomly disappears after rapidly jumping.
