@@ -44,7 +44,7 @@ end
 function UpdateSprites()
     movedThisFrame = false
     local crankDelta = playdate.getCrankChange()
-    crankDelta = crankDelta + RandomNumber(-3,3)
+    crankDelta = crankDelta + RandomNumber(-5,5)
     if not hasUpdated then
         hasUpdated = true
         playdate.graphics.sprite.update()
@@ -67,7 +67,7 @@ function UpdateSprites()
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
-    if IsGrounded(catSprite, boxSprite) and catSprite:getRotation() ~= 0 then
+    if IsGrounded(catSprite, boxSprite) and (-3 > catSprite:getRotation() and catSprite:getRotation() > 3) then
         -- todo: the player should die if they land on the box and are rotated
         catSprite:setRotation(0)
         JumpingSprites["cat"] = false
