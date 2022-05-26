@@ -42,7 +42,7 @@ end
 
 function UpdateSprites()
     movedThisFrame = false
-
+    local crankDelta = playdate.getCrankChange()
     if not hasUpdated then
         hasUpdated = true
         playdate.graphics.sprite.update()
@@ -50,6 +50,11 @@ function UpdateSprites()
     if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
         catSprite:pauseAnimation()
         movedThisFrame = true
+        if crankDelta ~= 0 then
+            local catRotation = catSprite:getRotation()
+            local newCatRotation = catRotation + crankDelta
+            catSprite:setRotation(newCatRotation)
+        end
         if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
             SetJumpForce("cat", 10)
         end
