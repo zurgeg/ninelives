@@ -1,10 +1,6 @@
----@diagnostic disable-next-line: undefined-global
 import "CoreLibs/graphics"
----@diagnostic disable-next-line: undefined-global
 import "CoreLibs/sprites"
----@diagnostic disable-next-line: undefined-global
 import "AnimatedSprite/AnimatedSprite"
----@diagnostic disable-next-line: undefined-global
 import "physics/spriteCollision"
 
 local gfx <const> = playdate.graphics
@@ -24,6 +20,7 @@ function SetUpSprites()
     box = playdate.geometry.rect.new(0, 200, 400,100)
     playdate.graphics.fillRect(box)
     boxSprite = playdate.graphics.sprite.new(box)
+    ---@diagnostic disable-next-line: undefined-global
     catSprite = AnimatedSprite.new(catAnim)
     assert (catSprite, "Failed to create cat sprite")
     assert (boxSprite, "Failed to create box sprite")
