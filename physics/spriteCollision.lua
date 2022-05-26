@@ -47,6 +47,10 @@ end
 
 function ApplyJumpForce(sprite, spritename)
     local force = jumpForces[spritename]
+    if force == nil then
+        JumpingSprites[spritename] = false
+        return
+    end
     if not JumpingSprites[spritename] and force ~= 0 then
         JumpingSprites[spritename] = true
     end
