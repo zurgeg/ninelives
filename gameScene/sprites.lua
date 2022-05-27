@@ -33,7 +33,6 @@ function SetUpSprites()
     --boxSprite:add()
     catSprite:playAnimation()
     SetUpCollision(catSprite)
-    GenerateGround(0, 400, 0, 200, 100, 100, 100, 100, 10)
     -- boxSprite:setCollideRect(box)
     -- playdate.graphics.fillRect(box)
     
@@ -79,9 +78,6 @@ function UpdateSprites()
         ApplyJumpForce(catSprite, "cat")
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
-    end
-    if IsGrounded(catSprite) then
-        print("grounded")
     end
     if IsGrounded(catSprite) and ((-3 > catSprite:getRotation()) or (catSprite:getRotation() > 3)) then
         -- todo: the player should die if they land on the box and are rotated
