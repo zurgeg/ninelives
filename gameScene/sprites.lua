@@ -3,15 +3,14 @@ import "CoreLibs/sprites"
 import "AnimatedSprite/AnimatedSprite"
 import "physics/spriteCollision"
 import "rng/rng"
-import "gen/proceduralGen"
 
 local gfx <const> = playdate.graphics
 
 local catSprite = nil
 
---local boxSprite = nil
+local boxSprite = nil
 
---local box
+local box
 
 local hasUpdated = false
 
@@ -20,32 +19,39 @@ local movedThisFrame = false
 local firstJumpFrame = true
 
 function SetUpSprites()
+    playdate.graphics.setColor(playdate.graphics.kColorXOR)
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
-    --box = playdate.geometry.rect.new(0, 200, 400,100)
-    --playdate.graphics.fillRect(box)
-    --boxSprite = playdate.graphics.sprite.new(box)
-    local minX = 0
-    local maxX = 200
-    local minY = 0
-    local maxY = 400
-    local minWidth = 50
-    local maxWidth = 100
-    local minHeight = 50
-    local maxHeight = 100
-    local minGap = 10
-    local maxGap = 100
-    RectsToSprites("ground", 10, minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight, minGap, maxGap)
+    box = playdate.geometry.rect.new(0, 200, 400,100)
+    playdate.graphics.fillRect(box)
+    boxSprite = playdate.graphics.sprite.new(box)
+    local purrlinArray = playdate.graphics.perlinArray(12, 0, 0.5) -- gens three rects (x, y, width, height)
+    --[[
+    for i = 1, #purrlinArray do
+        if i + 3 > #purrlinArray then
+            break
+        end
+        local box = playdate.geometry.rect.new(purrlinArray[i], purrlinArray[i + 1], purrlinArray[i + 2], purrlinArray[i + 3])
+        playdate.graphics.fillRect(box)
+        local boxSprite = playdate.graphics.sprite.new(box)
+        SetUpCollision(boxSprite, "ground")
+        boxSprite:setCollideRect(box)
+        boxSprite:add()
+        i = i + 3
+    end
+    ]]--
     ---@diagnostic disable-next-line: undefined-global
     catSprite = AnimatedSprite.new(catAnim)
     assert (catSprite, "Failed to create cat sprite")
-    --assert (boxSprite, "Failed to create box sprite")
+    assert (boxSprite, "Failed to create box sprite")
     catSprite:moveTo(200, 100)
     catSprite:add()
-    --boxSprite:add()
+    boxSprite:add()
     catSprite:playAnimation()
     SetUpCollision(catSprite)
-    -- boxSprite:setCollideRect(box)
-    -- playdate.graphics.fillRect(box)
+    SetUpCollision(boxSprite, "ground")
+    boxSprite:setCollideRect(box)
+    playdate.graphics.setColor(playdate.graphics.kColorBlack)
+    playdate.graphics.fillRect(box)
     
     function catSprite:collisionResponse(otherSprite)
         if CollisionList[otherSprite] == "ground" then
@@ -57,6 +63,7 @@ function SetUpSprites()
 end
 
 function UpdateSprites()
+    playdate.graphics.setColor(playdate.graphics.kColorBlack)
     movedThisFrame = false
     local crankDelta = playdate.getCrankChange()
     if not hasUpdated then
@@ -122,5 +129,7 @@ function UpdateSprites()
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
+    box = playdate.geometry.rect.new(0, 200, 400,100)
+    playdate.graphics.fillRect(box)
 end
 
