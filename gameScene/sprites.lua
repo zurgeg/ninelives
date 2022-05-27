@@ -31,9 +31,10 @@ function SetUpSprites()
     catSprite:add()
     boxSprite:add()
     catSprite:playAnimation()
-    SetUpCollision(catSprite, "ground")
-    boxSprite:setCollideRect(box)
-    playdate.graphics.fillRect(box)
+    SetUpCollision(catSprite)
+    -- boxSprite:setCollideRect(box)
+    -- playdate.graphics.fillRect(box)
+    
     function catSprite:collisionResponse(otherSprite)
         if CollisionList[otherSprite] == "ground" then
             return "slide"
