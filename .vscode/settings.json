@@ -4,7 +4,8 @@
         "/usr/bin/PlaydateSDK-1.11.1"
     ],
     "Lua.diagnostics.globals": [
-        "playdate"
+        "playdate",
+        "kTextAlignment"
     ],
     "Lua.runtime.special" : {
         "import" : "require"
