@@ -18,27 +18,18 @@ local movedThisFrame = false
 
 local firstJumpFrame = true
 
+local purrlinArray
+
+PurrlinBoxes = {}
+PurrlinSprites = {}
+
 function SetUpSprites()
     playdate.graphics.setColor(playdate.graphics.kColorXOR)
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
     box = playdate.geometry.rect.new(0, 200, 400,100)
     playdate.graphics.fillRect(box)
     boxSprite = playdate.graphics.sprite.new(box)
-    local purrlinArray = playdate.graphics.perlinArray(12, 0, 0.5) -- gens three rects (x, y, width, height)
-    --[[
-    for i = 1, #purrlinArray do
-        if i + 3 > #purrlinArray then
-            break
-        end
-        local box = playdate.geometry.rect.new(purrlinArray[i], purrlinArray[i + 1], purrlinArray[i + 2], purrlinArray[i + 3])
-        playdate.graphics.fillRect(box)
-        local boxSprite = playdate.graphics.sprite.new(box)
-        SetUpCollision(boxSprite, "ground")
-        boxSprite:setCollideRect(box)
-        boxSprite:add()
-        i = i + 3
-    end
-    ]]--
+    purrlinArray = playdate.graphics.perlinArray(12, 0, 0.5) -- gens three rects (x, y, width, height)
     ---@diagnostic disable-next-line: undefined-global
     catSprite = AnimatedSprite.new(catAnim)
     assert (catSprite, "Failed to create cat sprite")
@@ -52,6 +43,19 @@ function SetUpSprites()
     boxSprite:setCollideRect(box)
     playdate.graphics.setColor(playdate.graphics.kColorBlack)
     playdate.graphics.fillRect(box)
+    for i = 1, #purrlinArray do
+        if i + 3 > #purrlinArray then
+            break
+        end
+        local perlinBox = playdate.geometry.rect.new(purrlinArray[i], purrlinArray[i + 1], purrlinArray[i + 2], purrlinArray[i + 3])
+        local perlinBoxSprite = playdate.graphics.sprite.new(perlinBox)
+        SetUpCollision(perlinBoxSprite, "ground")
+        perlinBoxSprite:setCollideRect(perlinBox)
+        perlinBoxSprite:add()
+        table.insert(PurrlinBoxes, perlinBox)
+        table.insert(PurrlinSprites, perlinBoxSprite)
+        i = i + 3
+    end
     
     function catSprite:collisionResponse(otherSprite)
         if CollisionList[otherSprite] == "ground" then
@@ -131,5 +135,8 @@ function UpdateSprites()
     end
     box = playdate.geometry.rect.new(0, 200, 400,100)
     playdate.graphics.fillRect(box)
+    for i = 1, #PurrlinBoxes do
+        playdate.graphics.fillRect(PurrlinBoxes[i])
+    end
 end
 
