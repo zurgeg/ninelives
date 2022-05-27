@@ -3,6 +3,7 @@ import "CoreLibs/sprites"
 import "AnimatedSprite/AnimatedSprite"
 import "physics/spriteCollision"
 import "rng/rng"
+import "gen/proceduralGen"
 
 local gfx <const> = playdate.graphics
 
@@ -32,6 +33,7 @@ function SetUpSprites()
     boxSprite:add()
     catSprite:playAnimation()
     SetUpCollision(catSprite)
+    GenerateGround(0, 400, 0, 200, 0, 400, 0, 200, 10)
     -- boxSprite:setCollideRect(box)
     -- playdate.graphics.fillRect(box)
     
@@ -54,11 +56,11 @@ function UpdateSprites()
     if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
         catSprite:pauseAnimation()
         movedThisFrame = true
-        if IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"] then
+        if IsGrounded(catSprite) and not JumpingSprites["cat"] then
             SetJumpForce("cat", 10)
             firstJumpFrame = true
         end
-        if firstJumpFrame and not IsGrounded(catSprite,boxSprite) then
+        if firstJumpFrame and not IsGrounded(catSprite) then
             catSprite:setRotation(RandomNumber(-10,10))
             if #catSprite:overlappingSprites() > 0 then
                 catSprite:setRotation(0)
@@ -66,7 +68,7 @@ function UpdateSprites()
                 firstJumpFrame = false
             end
         end
-        if crankDelta ~= 0 and not IsGrounded(catSprite, boxSprite) then
+        if crankDelta ~= 0 and not IsGrounded(catSprite) then
             local catRotation = catSprite:getRotation()
             local newCatRotation = catRotation + crankDelta
             catSprite:setRotation(newCatRotation)
@@ -78,10 +80,10 @@ function UpdateSprites()
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
-    if IsGrounded(catSprite, boxSprite) then
+    if IsGrounded(catSprite) then
         print("grounded")
     end
-    if IsGrounded(catSprite, boxSprite) and ((-3 > catSprite:getRotation()) or (catSprite:getRotation() > 3)) then
+    if IsGrounded(catSprite) and ((-3 > catSprite:getRotation()) or (catSprite:getRotation() > 3)) then
         -- todo: the player should die if they land on the box and are rotated
         catSprite:setRotation(0)
         JumpingSprites["cat"] = false

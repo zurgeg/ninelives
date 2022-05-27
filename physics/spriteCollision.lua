@@ -29,7 +29,7 @@ function IsGrounded(sprite, groundSprite)
     NewY = sprite.y + 1
     local aX, aY, col, length = sprite:checkCollisions(NewX, NewY)
     for i = 1, length do
-        if col[i]["other"] == groundSprite then
+        if CollisionList[col[i]["other"]] == "ground" then
             return true
         else
             return false
