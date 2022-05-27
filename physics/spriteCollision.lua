@@ -5,6 +5,11 @@ local jumpForces = {}
 JumpingSprites = {}
 CollisionList = {}
 
+function RemoveCollision(sprite)
+    if CollisionList[sprite] then
+        CollisionList[sprite] = nil
+    end
+end
 function AddCollideRect(sprite)
     sprite:setCollideRect(0, 0, sprite:getSize())
 end

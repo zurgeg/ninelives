@@ -11,9 +11,7 @@ end
 
 local function generateGroundSprite(minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight)
     local platform = generateRect(minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight)
-    playdate.graphics.fillRect(platform)
     local groundSprite = playdate.graphics.sprite.new(platform)
-    groundSprite:add()
     return platform, groundSprite
 end
 
@@ -23,9 +21,15 @@ local function generateGroundCollision(minX, maxX, minY, maxY, minWidth, maxWidt
     local groundSprite
     while not isValid do
         platform, groundSprite = generateGroundSprite(minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight)
+        SetUpCollision(groundSprite, "ground")
         groundSprite:setCollideRect(platform)
-        if #groundSprite:overlappingSprites() == 0 then
+        if #(groundSprite:overlappingSprites()) == 0 then
             isValid = true
+            playdate.graphics.fillRect(platform)
+            playdate.graphics.sprite.update()
+            groundSprite:add()
+        else
+            RemoveCollision(groundSprite)
         end
     end
     return groundSprite

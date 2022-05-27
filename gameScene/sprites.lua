@@ -9,9 +9,9 @@ local gfx <const> = playdate.graphics
 
 local catSprite = nil
 
-local boxSprite = nil
+--local boxSprite = nil
 
-local box
+--local box
 
 local hasUpdated = false
 
@@ -21,8 +21,8 @@ local firstJumpFrame = true
 
 function SetUpSprites()
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
-    box = playdate.geometry.rect.new(0, 200, 400,100)
-    playdate.graphics.fillRect(box)
+    --box = playdate.geometry.rect.new(0, 200, 400,100)
+    --playdate.graphics.fillRect(box)
     --boxSprite = playdate.graphics.sprite.new(box)
     ---@diagnostic disable-next-line: undefined-global
     catSprite = AnimatedSprite.new(catAnim)
@@ -33,7 +33,7 @@ function SetUpSprites()
     --boxSprite:add()
     catSprite:playAnimation()
     SetUpCollision(catSprite)
-    GenerateGround(0, 400, 0, 200, 10, 30, 10, 30, 10)
+    GenerateGround(0, 400, 0, 200, 100, 100, 100, 100, 10)
     -- boxSprite:setCollideRect(box)
     -- playdate.graphics.fillRect(box)
     
@@ -53,7 +53,7 @@ function UpdateSprites()
         hasUpdated = true
         playdate.graphics.sprite.update()
     end
-    if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded(catSprite, boxSprite) and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
+    if ((playdate.buttonJustPressed(playdate.kButtonA) or playdate.buttonJustPressed(playdate.kButtonB) or playdate.buttonJustPressed(playdate.kButtonUp)) and IsGrounded(catSprite) and not JumpingSprites["cat"]) or JumpingSprites["cat"] then
         catSprite:pauseAnimation()
         movedThisFrame = true
         if IsGrounded(catSprite) and not JumpingSprites["cat"] then
