@@ -18,8 +18,16 @@ local function generateGroundSprite(minX, maxX, minY, maxY, minWidth, maxWidth, 
 end
 
 local function generateGroundCollision(minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight)
-    local platform, groundSprite = generateGroundSprite(minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight)
-    groundSprite:setCollideRect(platform)
+    local isValid = false
+    local platform
+    local groundSprite
+    while not isValid do
+        platform, groundSprite = generateGroundSprite(minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight)
+        groundSprite:setCollideRect(platform)
+        if #groundSprite:overlappingSprites() == 0 then
+            isValid = true
+        end
+    end
     return groundSprite
 end
 
