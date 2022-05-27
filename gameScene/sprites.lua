@@ -24,6 +24,17 @@ function SetUpSprites()
     --box = playdate.geometry.rect.new(0, 200, 400,100)
     --playdate.graphics.fillRect(box)
     --boxSprite = playdate.graphics.sprite.new(box)
+    local minX = 0
+    local maxX = 200
+    local minY = 0
+    local maxY = 400
+    local minWidth = 50
+    local maxWidth = 100
+    local minHeight = 50
+    local maxHeight = 100
+    local minGap = 10
+    local maxGap = 100
+    RectsToSprites("ground", 10, minX, maxX, minY, maxY, minWidth, maxWidth, minHeight, maxHeight, minGap, maxGap)
     ---@diagnostic disable-next-line: undefined-global
     catSprite = AnimatedSprite.new(catAnim)
     assert (catSprite, "Failed to create cat sprite")
