@@ -2,7 +2,7 @@ import "CoreLibs/ui"
 import "CoreLibs/graphics"
 
 local gfx = playdate.graphics
-local options = {"you'd", "better", "properly", "draw", "these"}
+local options = {"Play", "Options"}
 local menu = playdate.ui.gridview.new(0, 20)
 menu:setNumberOfRows(#options)
 
@@ -24,6 +24,13 @@ function UpdateMenu()
         menu:selectNextRow(false)
     elseif playdate.buttonJustPressed(playdate.kButtonUp) then
         menu:selectPreviousRow(false)
+    elseif playdate.buttonJustPressed(playdate.kButtonA) then
+        local section, row, column = menu:getSelection()
+        if row == 1 then
+            -- todo: load the game stuff
+        elseif row == 2 then
+            -- there are really no option yet lol
+        end
     end
     menu:drawInRect(0, 0, 400, 240)
 end
