@@ -11,11 +11,19 @@ function menu:drawCell(section, row, column, selected, x, y, width, height)
         gfx.fillRoundRect(x, y, width, 20, 4)
         gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
     else
-        gfx.setImageDrawMode(gfx.kDrawModeCopy)
+        gfx.setColor(gfx.kColorWhite)
+        gfx.fillRoundRect(x, y, width, 20, 4)
+        gfx.setColor(gfx.kColorBlack)
+        gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
     end
     gfx.drawText(options[row], x, y+2, width, height, kTextAlignment.center)
 end
 
 function UpdateMenu()
+    if playdate.buttonJustPressed(playdate.kButtonDown) then
+        menu:selectNextRow(false)
+    elseif playdate.buttonJustPressed(playdate.kButtonUp) then
+        menu:selectPreviousRow(false)
+    end
     menu:drawInRect(0, 0, 400, 240)
 end
