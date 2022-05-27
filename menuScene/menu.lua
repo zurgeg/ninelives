@@ -22,7 +22,7 @@ end
 
 function UpdateMenu()
     if playdate.buttonJustPressed("down") then
-        listview:selectNextRow()
+        listview:selectNextRow(false)
     end
     listview:drawInRect(220, 20, 160, 210)
 end
