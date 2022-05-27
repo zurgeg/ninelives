@@ -3,14 +3,15 @@ import "CoreLibs/graphics"
 
 local jumpForces = {}
 JumpingSprites = {}
+CollisionList = {}
 
 function AddCollideRect(sprite)
     sprite:setCollideRect(0, 0, sprite:getSize())
 end
 
-function SetUpCollision(sprite)
+function SetUpCollision(sprite, collisionType)
     AddCollideRect(sprite)
-    -- todo: what else should we do?
+    CollisionList[sprite] = collisionType or "ground"
 end
 
 function TryMoveBy(sprite, dx, dy)
