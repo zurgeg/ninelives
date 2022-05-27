@@ -7,7 +7,12 @@ local menu = playdate.ui.gridview.new(0, 20)
 menu:setNumberOfRows(#options)
 
 function menu:drawCell(section, row, column, selected, x, y, width, height)
-    gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
+    if selected then
+        gfx.fillRoundRect(x, y, width, 20, 4)
+        gfx.setImageDrawMode(gfx.kDrawModeFillWhite)
+    else
+        gfx.setImageDrawMode(gfx.kDrawModeFillBlack)
+    end
     gfx.drawText(options[row], x, y+2, width, height, kTextAlignment.center)
 end
 
