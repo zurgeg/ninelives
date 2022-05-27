@@ -27,9 +27,9 @@ function UpdateMenu()
     elseif playdate.buttonJustPressed(playdate.kButtonA) then
         local section, row, column = menu:getSelection()
         if row == 1 then
-            -- todo: load the game stuff
+            SetScene(SceneGame)
         elseif row == 2 then
-            -- there are really no option yet lol
+            -- no options
         end
     end
     menu:drawInRect(0, 0, 400, 240)

@@ -3,7 +3,15 @@ import "gameScene/sprites.lua"
 import "rng/rng.lua"
 import "menuScene/menu.lua"
 
-local testMenu = true
+SceneMenu = 0
+SceneGame = 1
+
+local scene = 0
+
+function SetScene(sceneID)
+    scene = sceneID
+end
+
 
 function SetUp()
     SetupRNG()
@@ -13,10 +21,12 @@ end
 SetUp()
 
 function playdate.update()
-    if testMenu then
+    if scene == SceneMenu then
         UpdateMenu()
-    else
+    elseif scene == SceneGame then
         UpdateSprites()
+    else
+        assert(false, "how did this happen")
     end
     playdate.timer.updateTimers()
 end
