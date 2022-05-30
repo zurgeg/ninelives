@@ -61,7 +61,7 @@ function UpdateSprites()
         catSprite:pauseAnimation()
         movedThisFrame = true
         if IsGrounded(catSprite) and not JumpingSprites["cat"] then
-            SetJumpForce("cat", 10)
+            SetJumpForce("cat", 12)
             firstJumpFrame = true
         end
         if firstJumpFrame and not IsGrounded(catSprite) then
