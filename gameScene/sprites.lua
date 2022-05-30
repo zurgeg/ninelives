@@ -3,6 +3,7 @@ import "CoreLibs/sprites"
 import "AnimatedSprite/AnimatedSprite"
 import "physics/spriteCollision"
 import "rng/rng"
+import "levelGeneration/levelGen"
 
 local gfx <const> = playdate.graphics
 

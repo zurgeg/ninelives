@@ -1,27 +1,5 @@
 --[[
-    function setup() {
-        createCanvas(400, 400);
-        background(220);
-        
-        let x = 0;
-        let y = 200;
-        
-        const w = 20;
-        const h = 20;
-        
-        while (x < 600){
-          const diff = x / 100
-          
-          x += int(random(1, 1 + diff)) * w
-          y += int(random(-diff, diff)) * h
-          rect(x-w, y, w, h)
-        }
-      }
-      
-      function draw() {
-        
-      }
-p5.js code courtesy of https://devforum.play.date/t/nine-lives-a-weird-platformer/6538/12
+original p5.js code courtesy of https://devforum.play.date/t/nine-lives-a-weird-platformer/6538/12
 --]]
 local xPos
 local yPos
