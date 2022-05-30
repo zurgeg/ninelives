@@ -1,6 +1,7 @@
 import "CoreLibs/timer"
 import "gameScene/sprites.lua"
 import "rng/rng.lua"
+import "levelGeneration/levelGen.lua"
 import "menuScene/menu.lua"
 
 SceneMenu = 0
@@ -12,9 +13,9 @@ function SetScene(sceneID)
     scene = sceneID
 end
 
-
 function SetUp()
     SetupRNG()
+    SetUpLevelGen(0, 200, 20, 20, 0, 0)
     SetUpSprites()
 end
 
