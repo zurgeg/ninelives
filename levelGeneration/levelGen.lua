@@ -43,6 +43,10 @@ function AddPlatforms(fromX, toX)
         yPos = yPos + math.random(-diff, diff) * height
         local rect = playdate.geometry.rect.new(xPos-width, yPos, width, height)
         playdate.graphics.drawRect(rect) -- todo: add collision
+        local fakeSprite = playdate.graphics.sprite.new(rect)
+        fakeSprite:add()
+        SetUpCollision(fakeSprite, "ground")
+        fakeSprite:setCollideRect(rect)
         Boxes[#Boxes+1] = rect
     end
 end
