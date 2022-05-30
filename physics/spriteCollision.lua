@@ -3,14 +3,20 @@ import "CoreLibs/graphics"
 
 local jumpForces = {}
 JumpingSprites = {}
+CollisionList = {}
 
+function RemoveCollision(sprite)
+    if CollisionList[sprite] then
+        CollisionList[sprite] = nil
+    end
+end
 function AddCollideRect(sprite)
     sprite:setCollideRect(0, 0, sprite:getSize())
 end
 
-function SetUpCollision(sprite)
+function SetUpCollision(sprite, collisionType)
     AddCollideRect(sprite)
-    -- todo: what else should we do?
+    CollisionList[sprite] = collisionType or "ground"
 end
 
 function TryMoveBy(sprite, dx, dy)
@@ -28,7 +34,7 @@ function IsGrounded(sprite, groundSprite)
     NewY = sprite.y + 1
     local aX, aY, col, length = sprite:checkCollisions(NewX, NewY)
     for i = 1, length do
-        if col[i]["other"] == groundSprite then
+        if CollisionList[col[i]["other"]] == "ground" then
             return true
         else
             return false
