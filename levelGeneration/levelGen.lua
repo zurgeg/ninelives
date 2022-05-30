@@ -39,11 +39,11 @@ function AddPlatforms(fromX, toX)
     xPos = fromX
     
     while (xPos < toX) do
-        local diff = math.ceil(xPos / 100)
+        local diff = math.floor(xPos / 100)
         xPos = xPos + math.random(1, 1 + diff) * width
         yPos = yPos + math.random(-diff, diff) * height
         local rect = playdate.geometry.rect.new(xPos-width, yPos, width, height)
-        playdate.graphics.drawRect(rect) -- todo: add collision
+        playdate.graphics.drawRect(rect)
         local fakeSprite = playdate.graphics.sprite.new(rect)
         fakeSprite:add()
         SetUpCollision(fakeSprite, "ground")
