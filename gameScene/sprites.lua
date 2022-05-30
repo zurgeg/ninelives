@@ -9,9 +9,7 @@ local gfx <const> = playdate.graphics
 
 local catSprite = nil
 
-local boxSprite = nil
-
-local box
+Boxes = {}
 
 local hasUpdated = false
 
@@ -22,22 +20,24 @@ local firstJumpFrame = true
 function SetUpSprites()
     playdate.graphics.setColor(playdate.graphics.kColorXOR)
     local catAnim = gfx.imagetable.new("gfx/anim/cat")
-    box = playdate.geometry.rect.new(0, 200, 400,100)
-    playdate.graphics.fillRect(box)
-    boxSprite = playdate.graphics.sprite.new(box)
+    --box = playdate.geometry.rect.new(0, 200, 400,100)
+    --playdate.graphics.fillRect(box)
+    --boxSprite = playdate.graphics.sprite.new(box)
     ---@diagnostic disable-next-line: undefined-global
     catSprite = AnimatedSprite.new(catAnim)
     assert (catSprite, "Failed to create cat sprite")
-    assert (boxSprite, "Failed to create box sprite")
+    -- assert (boxSprite, "Failed to create box sprite")
     catSprite:moveTo(200, 100)
     catSprite:add()
-    boxSprite:add()
+    -- boxSprite:add()
     catSprite:playAnimation()
     SetUpCollision(catSprite)
-    SetUpCollision(boxSprite, "ground")
-    boxSprite:setCollideRect(box)
+    -- SetUpCollision(boxSprite, "ground")
+    -- boxSprite:setCollideRect(box)
     playdate.graphics.setColor(playdate.graphics.kColorBlack)
-    playdate.graphics.fillRect(box)
+    -- playdate.graphics.fillRect(box)
+
+    AddPlatforms(0, 400)
     
     function catSprite:collisionResponse(otherSprite)
         if CollisionList[otherSprite] == "ground" then
@@ -115,7 +115,8 @@ function UpdateSprites()
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
-    -- box = playdate.geometry.rect.new(0, 200, 400,100)
-    playdate.graphics.fillRect(box)
+    for _, box in pairs(Boxes) do
+        playdate.graphics.fillRect(box)
+    end
 end
 
