@@ -5,7 +5,8 @@
     ],
     "Lua.diagnostics.globals": [
         "playdate",
-        "kTextAlignment"
+        "kTextAlignment",
+        "SetUpLevelGen"
     ],
     "Lua.runtime.special" : {
         "import" : "require"

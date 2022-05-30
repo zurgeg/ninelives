@@ -37,6 +37,7 @@ function SetUpSprites()
     playdate.graphics.setColor(playdate.graphics.kColorBlack)
     -- playdate.graphics.fillRect(box)
 
+    ---@diagnostic disable-next-line: undefined-global
     AddPlatforms(0, 400)
     
     function catSprite:collisionResponse(otherSprite)
