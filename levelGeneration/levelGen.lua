@@ -37,13 +37,12 @@ end
 function AddPlatforms(fromX, toX)
     xPos = fromX
     
-    local diff = difficultyBase + addedDifficulty / 100
-    
     while (xPos < toX) do
+        local diff = math.ceil(xPos / 1000)
         xPos = xPos + math.random(1, 1 + diff) * width
         yPos = yPos + math.random(-diff, diff) * height
         local rect = playdate.geometry.rect.new(xPos-width, yPos, width, height)
-        playdate.graphics.fillRect(rect) -- todo: add collision
+        playdate.graphics.drawRect(rect) -- todo: add collision
         Boxes[#Boxes+1] = rect
     end
 end

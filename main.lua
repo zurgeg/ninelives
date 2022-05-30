@@ -5,7 +5,7 @@ import "levelGeneration/levelGen.lua"
 
 function SetUp()
     SetupRNG()
-    SetUpLevelGen(0, 20, 100, 100, 0, DifficultyEasy)
+    SetUpLevelGen(0, 200, 20, 20, 0, 0)
     SetUpSprites()
 end
 

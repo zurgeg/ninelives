@@ -116,7 +116,7 @@ function UpdateSprites()
         catSprite:playAnimation()
     end
     for _, box in pairs(Boxes) do
-        playdate.graphics.fillRect(box)
+        playdate.graphics.drawRect(box)
     end
 end
 
