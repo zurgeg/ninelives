@@ -36,14 +36,14 @@ function SetUpLevelGen(x, y, w, h, metersRan, baseDifficulty, maxWidth, maxHeigh
     height = h
     addedDifficulty = metersRan -- not actually meters, but whatever
     difficultyBase = baseDifficulty
-    if mWidth == nil then
-        mWidth = w
-    end
-    if mHeight == nil then
-        mHeight = h
-    end
     mWidth = maxWidth
     mHeight = maxHeight
+    if maxWidth == nil then
+        mWidth = w
+    end
+    if maxHeight == nil then
+        mHeight = h
+    end
 end
 
 -- Add platforms from the x point specified at fromX to the x point specified at toX
@@ -51,8 +51,8 @@ function AddPlatforms(fromX, toX)
     xPos = fromX
     while (xPos < toX) do
         local diff = math.floor(xPos / 100)
-        currentWidth = math.random(w - diff,  mWidth + diff)
-        currentHeight = math.random(h - diff, mHeight + diff)
+        currentWidth = math.random(width - diff,  mWidth - diff)
+        currentHeight = math.random(height - diff, mHeight - diff)
         xPos = xPos + math.random(1, 1 + diff) * currentWidth
         yPos = yPos + math.random(-diff, diff) * currentHeight
         local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)

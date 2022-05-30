@@ -15,7 +15,7 @@ end
 
 function SetUp()
     SetupRNG()
-    SetUpLevelGen(0, 200, 20, 20, 0, 0)
+    SetUpLevelGen(0, 200, 20, 20, 0, 0, 60)
     SetUpSprites()
 end
 
