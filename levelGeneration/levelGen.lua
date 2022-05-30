@@ -15,6 +15,10 @@ local height
 local difficultyBase
 -- Added difficulty (i.e., due to how long the player has ran)
 local addedDifficulty
+-- Max width of the platforms
+local mWidth
+-- Max height of the platforms
+local mHeight
 
 DifficultyEasy = 0 -- too easy, my cat could do this
 DifficultyMedium = 100 -- not too hard, my cat can't do this anymore :(
@@ -25,24 +29,33 @@ DifficultyForceKill = 99999999 -- for testing death screen and whatnot
 
 
 -- Initialize level generator
-function SetUpLevelGen(x, y, w, h, metersRan, baseDifficulty)
+function SetUpLevelGen(x, y, w, h, metersRan, baseDifficulty, maxWidth, maxHeight)
     xPos = x
     yPos = y
     width = w
     height = h
     addedDifficulty = metersRan -- not actually meters, but whatever
     difficultyBase = baseDifficulty
+    if mWidth == nil then
+        mWidth = w
+    end
+    if mHeight == nil then
+        mHeight = h
+    end
+    mWidth = maxWidth
+    mHeight = maxHeight
 end
 
 -- Add platforms from the x point specified at fromX to the x point specified at toX
 function AddPlatforms(fromX, toX)
     xPos = fromX
-    
     while (xPos < toX) do
         local diff = math.floor(xPos / 100)
-        xPos = xPos + math.random(1, 1 + diff) * width
-        yPos = yPos + math.random(-diff, diff) * height
-        local rect = playdate.geometry.rect.new(xPos-width, yPos, width, height)
+        currentWidth = math.random(w - diff,  mWidth + diff)
+        currentHeight = math.random(h - diff, mHeight + diff)
+        xPos = xPos + math.random(1, 1 + diff) * currentWidth
+        yPos = yPos + math.random(-diff, diff) * currentHeight
+        local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
         playdate.graphics.drawRect(rect)
         local fakeSprite = playdate.graphics.sprite.new(rect)
         fakeSprite:add()
