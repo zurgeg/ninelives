@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 --[[
     original p5.js code courtesy of https://devforum.play.date/t/nine-lives-a-weird-platformer/6538/12
 --]]
