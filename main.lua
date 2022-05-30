@@ -14,7 +14,6 @@ function SetScene(sceneID)
 end
 
 function SetUp()
-    assert(playdate.metadata.bundleID == "com.zurgeg.NineLives", "metadata is broken somehow")
     SetupRNG()
     SetUpLevelGen(0, 200, 20, 20, 0, 0)
     SetUpSprites()
