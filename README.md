@@ -16,8 +16,11 @@ The player randomly disappears after rapidly jumping.
 
 ### Sideloading errors (regression, version unknown) 
 Attempting to sideload via the Panic website will error with "bundleID field not found".
+
 ~~Fixed in e9a3b753b63e2992fe830aad1f8d103516a25a14, testing requested~~ still fails
+
 ~~Fixed in a special build, testing requested~~ Still fails
+
 Fixed in 8d7d407d451b81dfc7ee523f3521b2f372aecd06, testing requested
 
 
