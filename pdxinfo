@@ -2,4 +2,4 @@ name=NineLives
 author=zurgeg
 description=An endless runner. But be warned, if you die nine times: your save file will be deleted.
 bundleID=com.zurgeg.NineLives
-version=0.0.0-beta.5
+version=0.0.0-beta.6
