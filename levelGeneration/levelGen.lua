@@ -50,8 +50,8 @@ function AddPlatforms(fromX, toX)
     xPos = fromX
     while (xPos < toX) do
         local diff = math.floor(xPos / 100)
-        currentWidth = math.random(width - diff,  mWidth - diff)
-        currentHeight = math.random(height - diff, mHeight - diff)
+        local currentWidth = math.random(width - diff,  mWidth - diff)
+        local currentHeight = math.random(height - diff, mHeight - diff)
         xPos = xPos + math.random(1, 1 + diff) * currentWidth
         yPos = yPos + math.random(-diff, diff) * currentHeight
         local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
