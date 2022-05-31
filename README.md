@@ -23,4 +23,6 @@ Attempting to sideload via the Panic website will error with "bundleID field not
 
 Fixed in 8d7d407d451b81dfc7ee523f3521b2f372aecd06, testing requested
 
+Fixed again in v0.0.0-beta.6, awaiting last test.
+
 
