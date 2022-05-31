@@ -46,21 +46,40 @@ function SetUpLevelGen(x, y, w, h, metersRan, baseDifficulty, maxWidth, maxHeigh
 end
 
 -- Add platforms from the x point specified at fromX to the x point specified at toX
-function AddPlatforms(fromX, toX)
+function AddPlatforms(fromX, toX, toDifficulty)
     xPos = fromX
-    while (xPos < toX) do
-        local diff = math.floor(xPos / 100)
-        local currentWidth = math.random(width - diff,  mWidth - diff)
-        local currentHeight = math.random(height - diff, mHeight - diff)
-        xPos = xPos + math.random(1, 1 + diff) * currentWidth
-        yPos = yPos + math.random(-diff, diff) * currentHeight
-        local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
-        playdate.graphics.drawRect(rect)
-        local fakeSprite = playdate.graphics.sprite.new(rect)
-        fakeSprite:add()
-        SetUpCollision(fakeSprite, "ground")
-        fakeSprite:setCollideRect(rect)
-        Boxes[#Boxes+1] = rect
+    if toDifficulty ~= nil and toX == nil then
+        local diff = 0
+        while (diff >= toDifficulty) do
+            diff = math.floor(xPos / 100)
+            local currentWidth = math.random(width - diff,  mWidth - diff)
+            local currentHeight = math.random(height - diff, mHeight - diff)
+            xPos = xPos + math.random(1, 1 + diff) * currentWidth
+            yPos = yPos + math.random(-diff, diff) * currentHeight
+            local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
+            playdate.graphics.drawRect(rect)
+            local fakeSprite = playdate.graphics.sprite.new(rect)
+            fakeSprite:add()
+            SetUpCollision(fakeSprite, "ground")
+            fakeSprite:setCollideRect(rect)
+            Boxes[#Boxes+1] = rect
+        end
+    else
+        assert(toX, "toX is nil, please pass it")
+        while (xPos < toX) do
+            local diff = math.floor(xPos / 100)
+            local currentWidth = math.random(width - diff,  mWidth - diff)
+            local currentHeight = math.random(height - diff, mHeight - diff)
+            xPos = xPos + math.random(1, 1 + diff) * currentWidth
+            yPos = yPos + math.random(-diff, diff) * currentHeight
+            local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
+            playdate.graphics.drawRect(rect)
+            local fakeSprite = playdate.graphics.sprite.new(rect)
+            fakeSprite:add()
+            SetUpCollision(fakeSprite, "ground")
+            fakeSprite:setCollideRect(rect)
+            Boxes[#Boxes+1] = rect
+        end
     end
 end
 
