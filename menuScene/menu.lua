@@ -4,6 +4,8 @@ import "CoreLibs/graphics"
 local gfx = playdate.graphics
 local options = {"Play", "Options"}
 local menu = playdate.ui.gridview.new(0, 20)
+local menuFont = gfx.font.new("resources/Roobert-11-Medium")
+local glyphFont = gfx.font.new("resources/Asheville-Sans-14-Light")
 menu:setNumberOfRows(#options)
 
 function menu:drawCell(section, row, column, selected, x, y, width, height)
@@ -29,8 +31,14 @@ function UpdateMenu()
         if row == 1 then
             SetScene(SceneGame)
         elseif row == 2 then
-            -- no options
+            SetScene(SceneOptions)
         end
     end
+
+    gfx.setFont(menuFont)
     menu:drawInRect(0, 0, 400, 240)
+    glyphFont:drawText("✛", 200, 40, kTextAlignment.center)
+    gfx.drawText(": Select option", 219, 40, menuFont, kTextAlignment.center)
+    gfx.drawText("Ⓑ: Back", 200, 60, menuFont, kTextAlignment.center)
+    gfx.drawText("Ⓐ: Confirm selection", 200, 80, menuFont, kTextAlignment.center)
 end

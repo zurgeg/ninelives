@@ -3,9 +3,11 @@ import "gameScene/sprites.lua"
 import "rng/rng.lua"
 import "levelGeneration/levelGen.lua"
 import "menuScene/menu.lua"
+import "optionsScene/options.lua"
 
 SceneMenu = 0
 SceneGame = 1
+SceneOptions = 2
 
 local scene = 0
 
@@ -26,6 +28,8 @@ function playdate.update()
         UpdateMenu()
     elseif scene == SceneGame then
         UpdateSprites()
+    elseif scene == SceneOptions then
+        UpdateOptions()
     else
         assert(false, "how did this happen")
     end
