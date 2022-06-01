@@ -5,6 +5,8 @@ import "levelGeneration/levelGen.lua"
 import "menuScene/menu.lua"
 import "optionsScene/options.lua"
 
+local gfx <const> = playdate.graphics
+
 SceneMenu = 0
 SceneGame = 1
 SceneOptions = 2
@@ -16,6 +18,8 @@ function SetScene(sceneID)
 end
 
 function SetUp()
+    local menuFont = gfx.font.new("resources/Roobert-11-Medium")
+    gfx.setFont(menuFont)
     SetupRNG()
     SetUpLevelGen(0, 200, 20, 20, 0, 0, 60)
     SetUpSprites()

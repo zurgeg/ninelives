@@ -34,8 +34,6 @@ function UpdateMenu()
             SetScene(SceneOptions)
         end
     end
-
-    gfx.setFont(menuFont)
     menu:drawInRect(0, 0, 400, 240)
     glyphFont:drawText("✛", 200, 40, kTextAlignment.center)
     gfx.drawText(": Select option", 219, 40, menuFont, kTextAlignment.center)
