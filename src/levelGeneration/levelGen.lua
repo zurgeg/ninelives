@@ -46,40 +46,30 @@ function SetUpLevelGen(x, y, w, h, metersRan, baseDifficulty, maxWidth, maxHeigh
 end
 
 -- Add platforms from the x point specified at fromX to the x point specified at toX
+-- Returns an array of platforms
+-- Platform (array):
+-- platformRect
+-- sprite
 function AddPlatforms(fromX, toX, toDifficulty)
     xPos = fromX
-    if toDifficulty ~= nil and toX == nil then
-        local diff = difficultyBase
-        while (diff >= toDifficulty) do
-            diff = math.floor(xPos / 100)
-            local currentWidth = math.random(width - diff,  mWidth - diff)
-            local currentHeight = math.random(height - diff, mHeight - diff)
-            xPos = xPos + math.random(1, 1 + diff) * currentWidth
-            yPos = yPos + math.random(-diff, diff) * currentHeight
-            local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
-            playdate.graphics.drawRect(rect)
-            local fakeSprite = playdate.graphics.sprite.new(rect)
-            fakeSprite:add()
-            SetUpCollision(fakeSprite, "ground")
-            fakeSprite:setCollideRect(rect)
-            Boxes[#Boxes+1] = rect
-        end
-    else
-        assert(toX, "toX is nil, please pass it")
-        while (xPos < toX) do
-            local diff = math.floor(xPos / 100)
-            local currentWidth = math.random(width - diff,  mWidth - diff)
-            local currentHeight = math.random(height - diff, mHeight - diff)
-            xPos = xPos + math.random(1, 1 + diff) * currentWidth
-            yPos = yPos + math.random(-diff, diff) * currentHeight
-            local rect = playdate.geometry.rect.new(xPos-width, yPos, currentWidth, currentHeight)
-            playdate.graphics.drawRect(rect)
-            local fakeSprite = playdate.graphics.sprite.new(rect)
-            fakeSprite:add()
-            SetUpCollision(fakeSprite, "ground")
-            fakeSprite:setCollideRect(rect)
-            Boxes[#Boxes+1] = rect
-        end
+    platformWidth = 25 -- 1/16th of a playdate screen, if I rember correctly
+    platformHeight = 10 -- height is almost all cosmetic, no need to make it too big
+    local platforms = {}
+    while xPos < toX do
+        local platformTable = {}
+        offsetX = math.random(xPos + 50, xPos + 50 + difficultyBase)
+        offsetY = math.random(yPos - difficultyBase, yPos + difficultyBase)
+        xPos = xPos + offsetX
+        yPos = yPos + offsetY
+        local platformRect = playdate.geometry.rect.new(xPos, yPos, platformHeight, platformWidth)
+        playdate.graphics.drawRect(platformRect)
+        table.insert(platformTable, platformRect)
+        local fakeSprite = playdate.graphics.sprite.new(rect)
+        table.insert(fakeSprite)
+        fakeSprite:add()
+        SetUpCollision(fakeSprite, "ground")
+        fakeSprite:setCollideRect(rect)
+        table.insert(platforms, platformTable)
     end
 end
 
