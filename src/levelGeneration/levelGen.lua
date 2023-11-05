@@ -20,9 +20,9 @@ local mWidth
 local mHeight
 
 DifficultyEasy = 0 -- too easy, my cat could do this
-DifficultyMedium = 100 -- not too hard, my cat can't do this anymore :(
-DifficultyHard = 200 -- hard(ish), good luck, have fun
-DifficultyHardcore = 500 -- ouch
+DifficultyMedium = 20 -- not too hard, my cat can't do this anymore :(
+DifficultyHard = 40 -- hard(ish), good luck, have fun
+DifficultyHardcore = 100 -- ouch
 DifficultyForceKill = 99999999 -- for testing death screen and whatnot
 
 
@@ -57,19 +57,20 @@ function AddPlatforms(fromX, toX, toDifficulty)
     local platforms = {}
     while xPos < toX do
         local platformTable = {}
-        offsetX = math.random(xPos + 50, xPos + 50 + difficultyBase)
+        offsetX = math.random(xPos + 12, xPos + 12 + difficultyBase)
         offsetY = math.random(yPos - difficultyBase, yPos + difficultyBase)
-        xPos = xPos + offsetX
-        yPos = yPos + offsetY
-        local platformRect = playdate.geometry.rect.new(xPos, yPos, platformHeight, platformWidth)
+        xPos = offsetX
+        yPos = offsetY
+        local platformRect = playdate.geometry.rect.new(xPos, yPos, platformWidth, platformHeight)
         playdate.graphics.drawRect(platformRect)
         table.insert(platformTable, platformRect)
         local fakeSprite = playdate.graphics.sprite.new(rect)
-        table.insert(fakeSprite)
+        table.insert(platformTable, fakeSprite)
         fakeSprite:add()
         SetUpCollision(fakeSprite, "ground")
-        fakeSprite:setCollideRect(rect)
+        fakeSprite:setCollideRect(platformRect)
         table.insert(platforms, platformTable)
+        table.insert(Boxes, platformRect)
     end
 end
 
