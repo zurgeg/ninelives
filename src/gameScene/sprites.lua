@@ -9,6 +9,8 @@ local gfx <const> = playdate.graphics
 
 local catSprite = nil
 
+local playerLives = nil
+
 Boxes = {}
 
 local hasUpdated = false
@@ -76,16 +78,16 @@ function UpdateSprites()
             local catRotation = catSprite:getRotation()
             local newCatRotation = catRotation + crankDelta
             catSprite:setRotation(newCatRotation)
-            if #catSprite:overlappingSprites() > 0 then
-                catSprite:setRotation(catRotation)
-            end
+            --if #catSprite:overlappingSprites() > 0 then
+            --    catSprite:setRotation(catRotation)
+            --end
         end
         ApplyJumpForce(catSprite, "cat")
         playdate.graphics.sprite.update()
         catSprite:playAnimation()
     end
     if IsGrounded(catSprite) and ((-3 > catSprite:getRotation()) or (catSprite:getRotation() > 3)) then
-        -- todo: the player should die if they land on the box and are rotated
+        playerLives -= 1
         catSprite:setRotation(0)
         JumpingSprites["cat"] = false
         playdate.graphics.sprite.update()

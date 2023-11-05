@@ -49,7 +49,7 @@ end
 function AddPlatforms(fromX, toX, toDifficulty)
     xPos = fromX
     if toDifficulty ~= nil and toX == nil then
-        local diff = 0
+        local diff = difficultyBase
         while (diff >= toDifficulty) do
             diff = math.floor(xPos / 100)
             local currentWidth = math.random(width - diff,  mWidth - diff)
