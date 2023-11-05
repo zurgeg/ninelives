@@ -19,10 +19,10 @@ local mWidth
 -- Max height of the platforms
 local mHeight
 
-DifficultyEasy = 0 -- too easy, my cat could do this
-DifficultyMedium = 20 -- not too hard, my cat can't do this anymore :(
-DifficultyHard = 40 -- hard(ish), good luck, have fun
-DifficultyHardcore = 100 -- ouch
+DifficultyEasy = 30 -- too easy, my cat could do this
+DifficultyMedium = 50 -- not too hard, my cat can't do this anymore :(
+DifficultyHard = 150 -- hard(ish), good luck, have fun
+DifficultyHardcore = 200 -- ouch
 DifficultyForceKill = 99999999 -- for testing death screen and whatnot
 
 
@@ -50,15 +50,22 @@ end
 -- Platform (array):
 -- platformRect
 -- sprite
+function math.clamp(x, min, max)
+    if x < min then return min end
+    if x > max then return max end
+    return x
+end
+
 function AddPlatforms(fromX, toX, toDifficulty)
     xPos = fromX
-    platformWidth = 25 -- 1/16th of a playdate screen, if I rember correctly
+    platformWidth = 50
     platformHeight = 10 -- height is almost all cosmetic, no need to make it too big
     local platforms = {}
     while xPos < toX do
         local platformTable = {}
-        offsetX = math.random(xPos + 12, xPos + 12 + difficultyBase)
-        offsetY = math.random(yPos - difficultyBase, yPos + difficultyBase)
+        offsetX = math.random(xPos + platformWidth, xPos + difficultyBase + platformWidth)
+        platformWidth = math.random(20, 50)
+        offsetY = math.clamp(math.random(yPos - difficultyBase, yPos + difficultyBase), 25, 240)
         xPos = offsetX
         yPos = offsetY
         local platformRect = playdate.geometry.rect.new(xPos, yPos, platformWidth, platformHeight)
