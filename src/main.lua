@@ -21,7 +21,7 @@ function SetUp()
     local menuFont = gfx.font.new("resources/Roobert-11-Medium")
     gfx.setFont(menuFont)
     SetupRNG()
-    SetUpLevelGen(0, 200, 20, 20, 0, 100, 60)
+    SetUpLevelGen(0, 200, 20, 20, 0, DifficultyMedium, 60)
     SetUpSprites()
 end
 
